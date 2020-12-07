@@ -26,9 +26,11 @@ public class TestMentor {
 	}
 	
 	@Test
-	public void AddMentor() {
-		Mentor mentor = new Mentor();
-		mentorRepo.AddMentor();	}
+	public void testAddMentor() {
+//		Mentor mentor = new Mentor();
+		Mentor m = new Mentor("gaja","lakshmi","gajalakshmi@gmail.com",857569373,
+				 3, 27);
+		mentorRepo.addMentor(m);	}
 
 //@Test
 public void removeMentorById() {

@@ -12,10 +12,9 @@ public class MentorRepository {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("test");
 	    em = emf.createEntityManager();
 	}
-	public Mentor AddMentor()
+	public Mentor addMentor(Mentor m)
 	{
-		Mentor m = new Mentor("gaja","lakshmi","gajalakshmi@gmail.com",857569373,
-				 3, 27);
+		
 		em.getTransaction().begin();
 		em.persist(m);
 		em.getTransaction().commit();

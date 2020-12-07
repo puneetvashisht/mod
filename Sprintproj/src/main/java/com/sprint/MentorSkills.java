@@ -1,9 +1,11 @@
 package com.sprint;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class MentorSkills {
+	@Id
 	int Skill_id;
 	String Skill_title;
 	public int getSkill_id() {
