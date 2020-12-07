@@ -30,7 +30,12 @@ public class TestMentor {
 	
 	@Test
 	public void testAddMentor() {
+<<<<<<< HEAD
 List<MentorSkills> skills=new ArrayList<MentorSkills>();
+=======
+		
+		List<MentorSkills> skills=new ArrayList<>();
+>>>>>>> c818984b2038e8953c55da2731f0bcf141a0f710
 		
 		MentorSkills ms1 = new MentorSkills("java full stack");
 		MentorSkills ms2 = new MentorSkills("React js");
@@ -43,9 +48,13 @@ List<MentorSkills> skills=new ArrayList<MentorSkills>();
 				 5, 29,skills);
 		
 		mentorRepo.addMentor(m1);
+<<<<<<< HEAD
 
 		
 	}
+=======
+}
+>>>>>>> c818984b2038e8953c55da2731f0bcf141a0f710
 
 //@Test
 public void removeMentorById() {

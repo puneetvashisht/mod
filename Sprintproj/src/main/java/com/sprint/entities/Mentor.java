@@ -23,7 +23,7 @@ public class Mentor {
 	int No_Of_Course_Teached;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
-	private List<MentorSkills> mentorskills;
+	private List<MentorSkills> mentorSkills;
 
 	
 	public String getMentor_Name() {
@@ -65,12 +65,23 @@ public class Mentor {
 	
 	
 	
+<<<<<<< HEAD
 	public List<MentorSkills> getMentorskills() {
 		return mentorskills;
 	}
 	public void setMentorskills(List<MentorSkills> mentorskills) {
 		this.mentorskills = mentorskills;
+=======
+
+	public List<MentorSkills> getMentorSkills() {
+		return mentorSkills;
 	}
+	public void setMentorSkills(List<MentorSkills> mentorSkills) {
+		this.mentorSkills = mentorSkills;
+>>>>>>> c818984b2038e8953c55da2731f0bcf141a0f710
+	}
+	
+	
 	public Mentor(String mentor_Name, String password, String email, long phone_Number,
 			int experience, int no_Of_Course_Teached,List<MentorSkills> mentorSkills) {
 		super();
@@ -80,7 +91,11 @@ public class Mentor {
 		Phone_Number = phone_Number;
 		Experience = experience;
 		No_Of_Course_Teached = no_Of_Course_Teached;
+<<<<<<< HEAD
 		this.mentorskills=mentorSkills;
+=======
+		this.mentorSkills=mentorSkills;
+>>>>>>> c818984b2038e8953c55da2731f0bcf141a0f710
 	}
 	
 	public Mentor() {
@@ -89,7 +104,7 @@ public class Mentor {
 	@Override
 	public String toString() {
 		return "Mentor [Mentor_Id=" + Mentor_Id + ", Mentor_Name=" + Mentor_Name + ", Password=" + Password + ", Email="
-				+ Email + ", Phone_Number=" + Phone_Number + ", Experience=" + Experience + ", No_Of_Course_Teached=" + No_Of_Course_Teached + "]";
+				+ Email + ", Phone_Number=" + Phone_Number + ", Experience=" + Experience + ", No_Of_Course_Teached=" + No_Of_Course_Teached + ", Mentor_Skills= "+ mentorSkills+ "]";
 	}
 
 }
