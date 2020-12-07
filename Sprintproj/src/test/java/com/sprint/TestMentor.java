@@ -1,6 +1,7 @@
 package com.sprint;
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.sprint.entities.Mentor;
+import com.sprint.entities.MentorSkills;
 import com.sprint.repos.MentorRepository;
 
 public class TestMentor {
@@ -28,18 +30,22 @@ public class TestMentor {
 	
 	@Test
 	public void testAddMentor() {
+List<MentorSkills> skills=new ArrayList<MentorSkills>();
+		
+		MentorSkills ms1 = new MentorSkills("java full stack");
+		MentorSkills ms2 = new MentorSkills("React js");
+		MentorSkills ms3 = new MentorSkills(".Net framework");
+		MentorSkills ms4 = new MentorSkills("unix");
+		
+		skills.add(ms1);skills.add(ms2);skills.add(ms3);skills.add(ms4);
+		
 		Mentor m1 = new Mentor("krishna","krish","krishnaka@gmail.com",988282978,
-				 5, 29);
-		Mentor m2 = new Mentor("Ganesh","Prabhu","Prabhuganesh@gmail.com",92451718,
-				 9, 30);
-		Mentor m3 = new Mentor("punnet","sighn","punnet356@gmail.com",988892998,
-				 6, 24);
-		Mentor m4 = new Mentor("smita","krish","smitaraj@gmail.com",839298798,
-				 3, 27);
+				 5, 29,skills);
+		
 		mentorRepo.addMentor(m1);
-		mentorRepo.addMentor(m2);
-		mentorRepo.addMentor(m3);
-		mentorRepo.addMentor(m4);}
+
+		
+	}
 
 //@Test
 public void removeMentorById() {

@@ -65,14 +65,14 @@ public class Mentor {
 	
 	
 	
-	public MentorSkills getMentorskills() {
+	public List<MentorSkills> getMentorskills() {
 		return mentorskills;
 	}
-	public void setMentorskills(MentorSkills mentorskills) {
+	public void setMentorskills(List<MentorSkills> mentorskills) {
 		this.mentorskills = mentorskills;
 	}
 	public Mentor(String mentor_Name, String password, String email, long phone_Number,
-			int experience, int no_Of_Course_Teached) {
+			int experience, int no_Of_Course_Teached,List<MentorSkills> mentorSkills) {
 		super();
 		Mentor_Name = mentor_Name;
 		Password = password;
@@ -80,6 +80,7 @@ public class Mentor {
 		Phone_Number = phone_Number;
 		Experience = experience;
 		No_Of_Course_Teached = no_Of_Course_Teached;
+		this.mentorskills=mentorSkills;
 	}
 	
 	public Mentor() {
