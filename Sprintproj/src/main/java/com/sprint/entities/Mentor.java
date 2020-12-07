@@ -65,20 +65,15 @@ public class Mentor {
 	
 	
 	
-<<<<<<< HEAD
-	public List<MentorSkills> getMentorskills() {
-		return mentorskills;
-	}
-	public void setMentorskills(List<MentorSkills> mentorskills) {
-		this.mentorskills = mentorskills;
-=======
+
+
 
 	public List<MentorSkills> getMentorSkills() {
 		return mentorSkills;
 	}
 	public void setMentorSkills(List<MentorSkills> mentorSkills) {
 		this.mentorSkills = mentorSkills;
->>>>>>> c818984b2038e8953c55da2731f0bcf141a0f710
+
 	}
 	
 	
@@ -91,11 +86,10 @@ public class Mentor {
 		Phone_Number = phone_Number;
 		Experience = experience;
 		No_Of_Course_Teached = no_Of_Course_Teached;
-<<<<<<< HEAD
-		this.mentorskills=mentorSkills;
-=======
+
+	
 		this.mentorSkills=mentorSkills;
->>>>>>> c818984b2038e8953c55da2731f0bcf141a0f710
+
 	}
 	
 	public Mentor() {
