@@ -29,6 +29,54 @@ public class TrainingActiveUser {
 	private LocalDate endDate;
 	private int progress;
 	private int rating;
+	public String getTrainingName() {
+		return trainingName;
+	}
+	public void setTrainingName(String trainingName) {
+		this.trainingName = trainingName;
+	}
+	public Mentor getMentor() {
+		return mentor;
+	}
+	public void setMentor(Mentor mentor) {
+		this.mentor = mentor;
+	}
+	public String getSkillTitle() {
+		return skillTitle;
+	}
+	public void setSkillTitle(String skillTitle) {
+		this.skillTitle = skillTitle;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
+	}
+	public int getProgress() {
+		return progress;
+	}
+	public void setProgress(int progress) {
+		this.progress = progress;
+	}
+	public int getRating() {
+		return rating;
+	}
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
 	public TrainingActiveUser() {
 		
 	}

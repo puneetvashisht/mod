@@ -1,4 +1,6 @@
 package com.sprint.repos;
+import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,17 +23,38 @@ public class TrainingRepo {
 		
 	}
 
-	public void assignTrainer() {
+	public void assignTrainer(TrainingActiveUser t) {
 		
 		
 		
 		em.getTransaction().begin();
 		
-		Mentor foundMentor = em.find(Mentor.class,1);
-		User foundUser=em.find(User.class,1);
+		em.persist(t);
 	
-		TrainingActiveUser ta=new TrainingActiveUser("priyank",foundMentor,"angular",foundUser,"20-12-2020","25-12-2020",0,0);
+		em.getTransaction().commit();
+	}
+	
+	public void startTraining() {
 		
+		TrainingActiveUser t=em.find(TrainingActiveUser.class, 7);
+		em.getTransaction().begin();
+		LocalDate d=LocalDate.now();
+		t.setStartDate(d);
+		em.getTransaction().commit();
 		
+	}
+	
+	public void endTraining() {
+		TrainingActiveUser t=em.find(TrainingActiveUser.class, 7);
+		em.getTransaction().begin();
+		LocalDate d=LocalDate.now();
+		t.setEndDate(d);
+		em.getTransaction().commit();
+	}
+	
+	public void findPreviousTraining() {
+		TypedQuery<TrainingActiveUser> query=em.createQuery("SELECT t FROM TrainingActiveUser t where t.Mentor=:1", TrainingActiveUser.class);
+		List<TrainingActiveUser> mentors=query.getResultList();
+		System.out.println(mentors);
 	}
 }

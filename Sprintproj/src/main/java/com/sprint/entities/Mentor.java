@@ -14,7 +14,7 @@ public class Mentor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 
-	int Mentor_Id;
+	int id;
 	String Mentor_Name;
 	String Password;
 	String Email;
@@ -91,7 +91,7 @@ public class Mentor {
 	}
 	@Override
 	public String toString() {
-		return "Mentor [Mentor_Id=" + Mentor_Id + ", Mentor_Name=" + Mentor_Name + ", Password=" + Password + ", Email="
+		return "Mentor [Mentor_Id=" + id + ", Mentor_Name=" + Mentor_Name + ", Password=" + Password + ", Email="
 				+ Email + ", Phone_Number=" + Phone_Number + ", Experience=" + Experience + ", No_Of_Course_Teached=" + No_Of_Course_Teached + ", Mentor_Skills= "+ mentorSkills+ "]";
 	}
 
