@@ -1,4 +1,4 @@
-package com.sprint;
+package com.sprint.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

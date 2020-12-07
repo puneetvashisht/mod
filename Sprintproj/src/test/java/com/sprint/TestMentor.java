@@ -1,3 +1,4 @@
+package com.sprint;
 import static org.junit.Assert.*;
 
 import java.util.List;
@@ -10,8 +11,8 @@ import javax.persistence.TypedQuery;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.sprint.Mentor;
-import com.sprint.MentorRepository;
+import com.sprint.entities.Mentor;
+import com.sprint.repos.MentorRepository;
 
 public class TestMentor {
 
