@@ -28,28 +28,35 @@ public class TestMentor {
 	
 	@Test
 	public void testAddMentor() {
-//		Mentor mentor = new Mentor();
-		Mentor m = new Mentor("gaja","lakshmi","gajalakshmi@gmail.com",857569373,
+		Mentor m1 = new Mentor("krishna","krish","krishnaka@gmail.com",988282978,
+				 5, 29);
+		Mentor m2 = new Mentor("Ganesh","Prabhu","Prabhuganesh@gmail.com",92451718,
+				 9, 30);
+		Mentor m3 = new Mentor("punnet","sighn","punnet356@gmail.com",988892998,
+				 6, 24);
+		Mentor m4 = new Mentor("smita","krish","smitaraj@gmail.com",839298798,
 				 3, 27);
-		mentorRepo.addMentor(m);	}
+		mentorRepo.addMentor(m1);
+		mentorRepo.addMentor(m2);
+		mentorRepo.addMentor(m3);
+		mentorRepo.addMentor(m4);}
 
 //@Test
 public void removeMentorById() {
-   	
-	Mentor mentor = new Mentor();
-	mentorRepo.removeMentorById();
+   	Mentor foundMentor = em.find(Mentor.class, 6);
+	mentorRepo.removeMentorById( foundMentor);
    }
 
 //@Test
 public void UpdateMentorById() {
- 	
-	Mentor mentor = new Mentor();
-	mentorRepo.UpdateMentorById();
+   	Mentor foundMentor = em.find(Mentor.class, 5);
+   	foundMentor.setMentor_Name("arun");
+   	mentorRepo.UpdateMentorById( foundMentor);
  }
 
 //@Test
 public void testFindUserByName() {
-	Mentor mentor = new Mentor();
+ 
 	mentorRepo.testFindUserByName();
 	
 }

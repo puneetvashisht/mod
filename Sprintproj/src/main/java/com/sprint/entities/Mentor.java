@@ -1,10 +1,15 @@
 package com.sprint.entities;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 @Entity
+@Table(name="mentor")
 public class Mentor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,6 +21,10 @@ public class Mentor {
 	long Phone_Number;
 	int Experience;
 	int No_Of_Course_Teached;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<MentorSkills> mentorskills;
+
 	
 	public String getMentor_Name() {
 		return Mentor_Name;
@@ -53,8 +62,15 @@ public class Mentor {
 	public void setNo_Of_Course_Teached(int no_Of_Course_Teached) {
 		No_Of_Course_Teached = no_Of_Course_Teached;
 	}
-
-
+	
+	
+	
+	public MentorSkills getMentorskills() {
+		return mentorskills;
+	}
+	public void setMentorskills(MentorSkills mentorskills) {
+		this.mentorskills = mentorskills;
+	}
 	public Mentor(String mentor_Name, String password, String email, long phone_Number,
 			int experience, int no_Of_Course_Teached) {
 		super();

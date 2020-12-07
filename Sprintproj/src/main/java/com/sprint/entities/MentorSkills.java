@@ -1,28 +1,28 @@
 package com.sprint.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 
 @Entity
 public class MentorSkills {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	int Skill_id;
 	String Skill_title;
-	public int getSkill_id() {
-		return Skill_id;
-	}
-	public void setSkill_id(int skill_id) {
-		Skill_id = skill_id;
-	}
+	
+
 	public String getSkill_title() {
 		return Skill_title;
 	}
 	public void setSkill_title(String skill_title) {
 		Skill_title = skill_title;
 	}
-	public MentorSkills(int skill_id, String skill_title) {
+	public MentorSkills( String skill_title) {
 		super();
-		Skill_id = skill_id;
+
 		Skill_title = skill_title;
 	}
 	
