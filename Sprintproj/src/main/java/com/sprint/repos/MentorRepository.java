@@ -7,6 +7,7 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import com.sprint.entities.Mentor;
+import com.sprint.entities.MentorSkills;
 public class MentorRepository {
 	private EntityManager em;
 	public MentorRepository()
@@ -22,28 +23,25 @@ public class MentorRepository {
 		em.getTransaction().commit();
 		return m;
 	}
-	   public void removeMentorById() {
-	   	
-	   	Mentor foundMentor = em.find(Mentor.class, 6);
+	   public void removeMentorById(Mentor foundMentor) 
+	   {
 	   	em.getTransaction().begin();
 	   	em.remove(foundMentor);
 	   	em.getTransaction().commit();
 	   }
 	   
 	   
-	   public void UpdateMentorById() {
+	   public void UpdateMentorById(Mentor  foundMentor) {
 		   	em.getTransaction().begin();
-		   	Mentor foundMentor = em.find(Mentor.class, 5);
-		   	foundMentor.setMentor_Name("arun");
 		   	em.getTransaction().commit();
 		   	
 		   }
 
 	   public void testFindUserByName() {
-	   	TypedQuery<Mentor> query = em.createQuery
-	   			("SELECT u FROM Mentor u where u.Mentor_Name=:nameparam", Mentor.class);
-	   	query.setParameter("nameparam","arun");
 	  
+			TypedQuery<Mentor> query = em.createQuery
+		   			("SELECT u FROM Mentor u where u.Mentor_Name=:nameparam", Mentor.class);
+		   	query.setParameter("nameparam","arun");
 	   	List<Mentor> Mentors = query.getResultList();
             System.out.println(Mentors);
 	   	

@@ -1,21 +1,30 @@
 package com.sprint.entities;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 @Entity
+@Table(name="mentor")
 public class Mentor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 
-	int Mentor_Id;
+	int id;
 	String Mentor_Name;
 	String Password;
 	String Email;
 	long Phone_Number;
 	int Experience;
 	int No_Of_Course_Teached;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<MentorSkills> mentorSkills;
+
 	
 	public String getMentor_Name() {
 		return Mentor_Name;
@@ -53,10 +62,23 @@ public class Mentor {
 	public void setNo_Of_Course_Teached(int no_Of_Course_Teached) {
 		No_Of_Course_Teached = no_Of_Course_Teached;
 	}
+	
+	
+	
 
 
+
+	public List<MentorSkills> getMentorSkills() {
+		return mentorSkills;
+	}
+	public void setMentorSkills(List<MentorSkills> mentorSkills) {
+		this.mentorSkills = mentorSkills;
+
+	}
+	
+	
 	public Mentor(String mentor_Name, String password, String email, long phone_Number,
-			int experience, int no_Of_Course_Teached) {
+			int experience, int no_Of_Course_Teached,List<MentorSkills> mentorSkills) {
 		super();
 		Mentor_Name = mentor_Name;
 		Password = password;
@@ -64,6 +86,10 @@ public class Mentor {
 		Phone_Number = phone_Number;
 		Experience = experience;
 		No_Of_Course_Teached = no_Of_Course_Teached;
+
+	
+		this.mentorSkills=mentorSkills;
+
 	}
 	
 	public Mentor() {
@@ -71,8 +97,8 @@ public class Mentor {
 	}
 	@Override
 	public String toString() {
-		return "Mentor [Mentor_Id=" + Mentor_Id + ", Mentor_Name=" + Mentor_Name + ", Password=" + Password + ", Email="
-				+ Email + ", Phone_Number=" + Phone_Number + ", Experience=" + Experience + ", No_Of_Course_Teached=" + No_Of_Course_Teached + "]";
+		return "Mentor [Mentor_Id=" + id + ", Mentor_Name=" + Mentor_Name + ", Password=" + Password + ", Email="
+				+ Email + ", Phone_Number=" + Phone_Number + ", Experience=" + Experience + ", No_Of_Course_Teached=" + No_Of_Course_Teached + ", Mentor_Skills= "+ mentorSkills+ "]";
 	}
 
 }
