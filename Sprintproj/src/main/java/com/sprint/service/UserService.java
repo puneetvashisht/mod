@@ -1,14 +1,14 @@
-package com.cpg.service;
+package com.sprint.service;
 
 import java.util.List;
 
-import com.cpg.entities.User;
-import com.cpg.exception.InvalidInputDataException;
-import com.cpg.repo.UserRepo;
+import com.sprint.entities.User;
+import com.sprint.exception.InvalidInputDataException;
+import com.sprint.repos.UserRepo;
 
 public class UserService {
         UserRepo userrepo=new UserRepo();
-        public  User add(User user) throws InvalidInputDataException {	
+        public  User add(User user,String role) throws InvalidInputDataException {	
     		String name = user.getName();
     		if (name.trim().isEmpty() || name ==  null) {
     			throw new InvalidInputDataException("First Name cannot be empty");
@@ -28,7 +28,7 @@ public class UserService {
     		if ( !(phno.matches("[0-9]{10}"))  || phno.trim().isEmpty()) {
     			throw new InvalidInputDataException("Please enter valid Phone number");
     		}
-    	   User u=userrepo.addUser(user);
+    	   User u=userrepo.addUser(user,role);
     	   return u;
         }
     		

@@ -1,4 +1,4 @@
-package com.cpg.repo;
+package com.sprint.repos;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import com.cpg.entities.Role;
-import com.cpg.entities.User;
-import com.cpg.service.*;
+import com.sprint.entities.Role;
+import com.sprint.entities.User;
+import com.sprint.service.*;
 public class UserRepo {
 	
 	private  EntityManager em;
@@ -19,10 +19,15 @@ public class UserRepo {
 		em = emf.createEntityManager();
 	
 	  }
-	public  User addUser(User u1) {
-	
-		em.getTransaction().begin();
+	public  User addUser(User u1,String role) {
 		
+		em.getTransaction().begin();
+		TypedQuery<Role> query = em.createQuery("SELECT r FROM Role r where r.rolename=:role", Role.class);
+		query.setParameter("role", role);
+		Role r=query.getSingleResult();
+		System.out.println(r);
+		u1.setRole(r);
+		System.out.println(u1);
 	    em.persist(u1);
 		
 		em.getTransaction().commit();

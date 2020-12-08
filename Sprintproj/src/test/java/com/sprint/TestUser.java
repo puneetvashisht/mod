@@ -1,4 +1,4 @@
-package com.cpg.test;
+package com.sprint;
 import java.util.List;
 import static org.junit.Assert.*;
 import javax.persistence.EntityManager;
@@ -10,30 +10,39 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.cpg.entities.Role;
-import com.cpg.entities.User;
-import com.cpg.repo.UserRepo;
-import com.cpg.service.*;
+import com.sprint.entities.Role;
+import com.sprint.entities.User;
+import com.sprint.repos.RoleRepo;
+import com.sprint.repos.UserRepo;
+import com.sprint.service.*;
 public class TestUser
 {
 	private EntityManager em;
 	UserRepo obj =new UserRepo();
+	RoleRepo robj=new RoleRepo();
 	UserService ser=new UserService();
     
-	Role r1=new Role("User");
-    Role r2=new Role("Admin");
-    Role r3=new Role("Mentor");
-
+//	Role r1=new Role("User");
+//    Role r2=new Role("Admin");
+//    Role r3=new Role("Mentor");
+	Role r1=null;
 	//@Test
 	public void testAddUser()
 	{
-  
-		User u=new User("priya","pri@gmail.com","96788","98989",r1);
-		ser.add(u);
+		
+		User u=new User("priya","pri@gmail.com","123456","9898986823",r1);
+	//	User u=new User("priyanka","priyanka@gmail.com","123456","9898986824",r1);
+		ser.add(u,"User");
 	}
+	
+//	@Test
+	public void testAddRole() {
+		robj.addRole();
+	}
+	
 //@Test 
 	public void testFindUserById() {		
-	   ser.findUserbyid(36);
+	   ser.findUserbyid(6);
 	}
 //  @Test
     public void testUpdateUserName()
@@ -55,7 +64,8 @@ public class TestUser
     {
      obj.updateUserPhno(35,"9988770066");
 }
-   @Test
+ 
+    //@Test
     public void testRemoveUseById()
     {
         ser.removeById(56);   
@@ -65,13 +75,13 @@ public class TestUser
     public void testUserRegistration()
     {
 
-		User u=new User("Ani","ani@gmail.com","aniss","97706690",r3);
+		User u=new User("Ani","ani@gmail.com","aniss","97706690",r1);
 		ser.register(u);
     }
   // @Test
     public void testLoginUser()
     {
-    	ser.validateUser("priyaa","9976");
+    	ser.validateUser("priya","123456");
     }
 
     

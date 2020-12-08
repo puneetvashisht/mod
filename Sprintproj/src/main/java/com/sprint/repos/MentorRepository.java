@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 
 import com.sprint.entities.Mentor;
 import com.sprint.entities.MentorSkills;
+import com.sprint.entities.User;
 public class MentorRepository {
 	private EntityManager em;
 	public MentorRepository()
@@ -30,7 +31,12 @@ public class MentorRepository {
 	   	em.getTransaction().commit();
 	   }
 	   
-	   
+	   public Mentor findMentorById(int id)
+	   {
+	   	    Mentor foundMentor = em.find(Mentor.class,id);
+	   		System.out.println(foundMentor);
+	   		return foundMentor;
+	   }
 	   public void UpdateMentorById(Mentor  foundMentor) {
 		   	em.getTransaction().begin();
 		   	em.getTransaction().commit();

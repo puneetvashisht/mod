@@ -34,9 +34,9 @@ public class TrainingRepo {
 		em.getTransaction().commit();
 	}
 	
-	public void startTraining() {
+	public void startTraining(int id) {
 		
-		TrainingActiveUser t=em.find(TrainingActiveUser.class, 7);
+		TrainingActiveUser t=em.find(TrainingActiveUser.class, id);
 		em.getTransaction().begin();
 		LocalDate d=LocalDate.now();
 		t.setStartDate(d);
@@ -44,17 +44,60 @@ public class TrainingRepo {
 		
 	}
 	
-	public void endTraining() {
-		TrainingActiveUser t=em.find(TrainingActiveUser.class, 7);
+	public void endTraining(int id) {
+		TrainingActiveUser t=em.find(TrainingActiveUser.class, id);
 		em.getTransaction().begin();
 		LocalDate d=LocalDate.now();
+		t.setProgress(100);
 		t.setEndDate(d);
 		em.getTransaction().commit();
 	}
 	
-	public void findPreviousTraining() {
-		TypedQuery<TrainingActiveUser> query=em.createQuery("SELECT t FROM TrainingActiveUser t where t.Mentor=:1", TrainingActiveUser.class);
+	public void findPreviousTraining(int id) {
+		TypedQuery<TrainingActiveUser> query=em.createQuery("SELECT t FROM TrainingActiveUser t where t.mentor.id=:id", TrainingActiveUser.class);
+		query.setParameter("id", id);
 		List<TrainingActiveUser> mentors=query.getResultList();
 		System.out.println(mentors);
+	}
+	public void updateProgress(int progress,int mentorId,String trainingName) {
+		em.getTransaction().begin();
+		TypedQuery<TrainingActiveUser> query=em.createQuery("SELECT t FROM TrainingActiveUser t where t.trainingName=:trainingName and t.mentor.id=:id", TrainingActiveUser.class);
+		query.setParameter("trainingName", trainingName);
+		query.setParameter("id", mentorId);
+		TrainingActiveUser obj=query.getSingleResult();
+		
+		obj.setProgress(progress);
+		
+		em.getTransaction().commit();
+		
+		
+	}
+	public void addRating(String trainingName,int user_id,int rating) {
+		
+		em.getTransaction().begin();
+		TypedQuery<TrainingActiveUser> query=em.createQuery("SELECT t FROM TrainingActiveUser t where t.trainingName=:trainingName and t.user.id=:user_id", TrainingActiveUser.class);
+		query.setParameter("trainingName", trainingName);
+		query.setParameter("user_id", user_id);
+		
+		TrainingActiveUser obj=query.getSingleResult();
+		if(obj.getProgress()==100) {
+			obj.setRating(rating);
+		}
+		else {
+			System.out.println("training is incomplete " +"\n" +"progress: "+obj.getProgress());
+		}
+		
+		em.getTransaction().commit();
+		
+	}
+
+	public void findProgress(String trainingName,int user_id) {
+		// TODO Auto-generated method stub
+		em.getTransaction().begin();
+		TypedQuery<TrainingActiveUser> query=em.createQuery("SELECT t FROM TrainingActiveUser t where t.trainingName=:trainingName and t.user.id=:user_id", TrainingActiveUser.class);
+		query.setParameter("trainingName", trainingName);
+		query.setParameter("user_id", user_id);
+		TrainingActiveUser obj=query.getSingleResult();
+		System.out.println("Progress = "+obj.getProgress());
 	}
 }

@@ -86,8 +86,6 @@ public class Mentor {
 		Phone_Number = phone_Number;
 		Experience = experience;
 		No_Of_Course_Teached = no_Of_Course_Teached;
-
-	
 		this.mentorSkills=mentorSkills;
 
 	}

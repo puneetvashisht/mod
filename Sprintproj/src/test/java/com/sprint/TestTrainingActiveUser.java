@@ -35,22 +35,39 @@ private EntityManager em;
 //	@Test
 	public void testAssignTrainer() {
 		Mentor foundMentor = em.find(Mentor.class,2);
-		User foundUser=em.find(User.class,1);
+		User foundUser=em.find(User.class,11);
 		TrainingActiveUser ta=new TrainingActiveUser("priyank",foundMentor,"angular",foundUser,null,null,0,0);
 		trainingRepo.assignTrainer(ta);
 	}
 //	@Test
 	public void testStartTraining() {
-		trainingRepo.startTraining();
+		trainingRepo.startTraining(7);
 	}
 	
 //	@Test
 	public void testEndTraining() {
-		trainingRepo.endTraining();
+		trainingRepo.endTraining(7);
 	}
 	
 //	@Test
 	public void testPreviousTraining() {
-		trainingRepo.endTraining();
+		trainingRepo.findPreviousTraining(2);
 	}
+	
+//	@Test
+	public void testAddRating() {
+		trainingRepo.addRating("angular", 1, 5);
+	}
+	
+//  @Test
+	public void testProgress() {
+		trainingRepo.updateProgress(50, 2, "angular");
+	}
+	
+//	@Test
+	public void testFindProgress() {
+		trainingRepo.findProgress("angular",1);
+	}
+	
+	
 }

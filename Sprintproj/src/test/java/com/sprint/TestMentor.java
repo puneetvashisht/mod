@@ -28,7 +28,7 @@ public class TestMentor {
 	    em = emf.createEntityManager();
 	}
 	
-	@Test
+	//@Test
 	public void testAddMentor() {
 
 
@@ -39,15 +39,15 @@ public class TestMentor {
 		
 		MentorSkills ms1 = new MentorSkills("java full stack");
 		MentorSkills ms2 = new MentorSkills("React js");
-		MentorSkills ms3 = new MentorSkills(".Net framework");
-		MentorSkills ms4 = new MentorSkills("unix");
+//		MentorSkills ms3 = new MentorSkills(".Net framework");
+//		MentorSkills ms4 = new MentorSkills("unix");
 		
-		skills.add(ms1);skills.add(ms2);skills.add(ms3);skills.add(ms4);
+		skills.add(ms1);skills.add(ms2);
+//		skills.add(ms3);skills.add(ms4);
 		
-		Mentor m1 = new Mentor("krishna","krish","krishnaka@gmail.com",988282978,
-				 5, 29,skills);
+		Mentor m2 = new Mentor("manish","rai","manishrai@gmail.com",1234567890,5, 29,skills);
 		
-		mentorRepo.addMentor(m1);
+		mentorRepo.addMentor(m2);
 
 
 		
@@ -73,5 +73,6 @@ public void testFindUserByName() {
 	mentorRepo.testFindUserByName();
 	
 }
+
 
 }

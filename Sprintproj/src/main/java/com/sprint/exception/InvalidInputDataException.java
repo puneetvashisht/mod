@@ -1,4 +1,4 @@
-package com.cpg.exception;
+package com.sprint.exception;
 
 
 public class InvalidInputDataException extends RuntimeException {
