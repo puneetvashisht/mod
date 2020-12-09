@@ -70,12 +70,12 @@ public User findUserById(int id)
 		System.out.println(foundUser);
 		return foundUser;
 }
-public void findUserByName(String name) {
+public User findUserByName(String name) {
 	TypedQuery<User> query = em.createQuery("SELECT u FROM User u where u.name=:nameparam", User.class);
 	query.setParameter("nameparam", name);
-	List<User> users = query.getResultList();
-	System.out.println(users);
-	
+	User u = query.getSingleResult();
+	System.out.println(u);
+	return u;
 }
 
 

@@ -24,14 +24,14 @@ public class User {
 	private Role role;
 	
 	public User() {}
-	public User(String name, String email, String password,String phno,Role role) {
+	public User(String name, String email, String password,String phno) {
 		super();
 		
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.phno=phno;
-		this.role=role;
+	
 	}
 
 

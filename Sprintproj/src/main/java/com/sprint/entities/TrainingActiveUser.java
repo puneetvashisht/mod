@@ -81,15 +81,14 @@ public class TrainingActiveUser {
 		
 	}
 	public TrainingActiveUser(String trainingName, Mentor mentor, String skillTitle, User user,
-			 LocalDate startDate, LocalDate endDate, int progress, int rating) {
+			 int progress, int rating) {
 		super();
 		this.trainingName = trainingName;
 		this.mentor = mentor;
 		this.skillTitle = skillTitle;
 		this.user = user;
 //		this.user_email = user_email;
-		this.startDate = startDate;
-		this.endDate = endDate;
+		
 		this.progress = progress;
 		this.rating = rating;
 	}

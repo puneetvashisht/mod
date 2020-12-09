@@ -25,13 +25,12 @@ public class TestUser
 //	Role r1=new Role("User");
 //    Role r2=new Role("Admin");
 //    Role r3=new Role("Mentor");
-	Role r1=null;
-	//@Test
+	@Test
 	public void testAddUser()
 	{
 		
-		User u=new User("priya","pri@gmail.com","123456","9898986823",r1);
-	//	User u=new User("priyanka","priyanka@gmail.com","123456","9898986824",r1);
+//		User u=new User("priya","pri@gmail.com","123456","9898986823");
+		User u=new User("priyanka","priyanka@gmail.com","123456","9898986824");
 		ser.add(u,"User");
 	}
 	
@@ -75,7 +74,7 @@ public class TestUser
     public void testUserRegistration()
     {
 
-		User u=new User("Ani","ani@gmail.com","aniss","97706690",r1);
+		User u=new User("Ani","ani@gmail.com","aniss","97706690");
 		ser.register(u);
     }
   // @Test
@@ -83,6 +82,13 @@ public class TestUser
     {
     	ser.validateUser("priya","123456");
     }
+    
+//    @Test
+    public void testFailLogin(){
+    	assertFalse(ser.validateUser("priya","123"));
+    }
+   
+    
 
     
     

@@ -12,6 +12,8 @@ import com.sprint.entities.Mentor;
 import com.sprint.entities.User;
 public class TrainingRepo {
 	private EntityManager em;
+	UserRepo userRepo=new UserRepo();
+	MentorRepository mentorRepo=new MentorRepository();
 	public TrainingRepo() {
 		/* Create EntityManagerFactory */
 		EntityManagerFactory emf = Persistence
@@ -23,10 +25,12 @@ public class TrainingRepo {
 		
 	}
 
-	public void assignTrainer(TrainingActiveUser t) {
+	public void assignTrainer(TrainingActiveUser t,int mentorId,int userId) {
 		
-		
-		
+		Mentor foundMentor = mentorRepo.findMentorById(mentorId);
+		User foundUser=userRepo.findUserById(userId);
+		t.setMentor(foundMentor);
+		t.setUser(foundUser);
 		em.getTransaction().begin();
 		
 		em.persist(t);
@@ -54,7 +58,7 @@ public class TrainingRepo {
 	}
 	
 	public void findPreviousTraining(int id) {
-		TypedQuery<TrainingActiveUser> query=em.createQuery("SELECT t FROM TrainingActiveUser t where t.mentor.id=:id", TrainingActiveUser.class);
+		TypedQuery<TrainingActiveUser> query=em.createQuery("SELECT t FROM TrainingActiveUser t where t.mentor.id=:id and t.progress=100", TrainingActiveUser.class);
 		query.setParameter("id", id);
 		List<TrainingActiveUser> mentors=query.getResultList();
 		System.out.println(mentors);

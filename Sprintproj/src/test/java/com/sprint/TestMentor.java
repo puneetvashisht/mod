@@ -28,7 +28,7 @@ public class TestMentor {
 	    em = emf.createEntityManager();
 	}
 	
-	//@Test
+//	@Test
 	public void testAddMentor() {
 
 
@@ -45,7 +45,7 @@ public class TestMentor {
 		skills.add(ms1);skills.add(ms2);
 //		skills.add(ms3);skills.add(ms4);
 		
-		Mentor m2 = new Mentor("manish","rai","manishrai@gmail.com",1234567890,5, 29,skills);
+		Mentor m2 = new Mentor("manish","rai","manishrai@gmail.com","9845635763",5,19,skills);
 		
 		mentorRepo.addMentor(m2);
 
@@ -53,26 +53,41 @@ public class TestMentor {
 		
 	}
 
-
-//@Test
-public void removeMentorById() {
-   	Mentor foundMentor = em.find(Mentor.class, 6);
-	mentorRepo.removeMentorById( foundMentor);
-   }
-
-//@Test
-public void UpdateMentorById() {
-   	Mentor foundMentor = em.find(Mentor.class, 5);
-   	foundMentor.setMentor_Name("arun");
-   	mentorRepo.UpdateMentorById( foundMentor);
- }
-
-//@Test
-public void testFindUserByName() {
- 
-	mentorRepo.testFindUserByName();
+//	@Test
+	public void removeMentorById() {
+	   	
+		mentorRepo.removeMentorById(6);
+	   }
 	
-}
+	//@Test
+	public void testUpdateMentorByName() {
+	   	
+	   	mentorRepo.updateMentorName(5,"arun");
+	 }
+//	@Test
+	public void testFindeMentorById() {
+	   	mentorRepo.findMentorById(5);
+	 }
+	//@Test
+	public void testUpdateMentorEmail() {
+		   	
+		mentorRepo.updateMentorName(5,"arun@gmail.com");
+	}
+//	@Test
+	public void testUpdateeMentorPhno() {
+	   	mentorRepo.updateMentorPhno(5,"9845689569");
+	 }
+	//@Test
+	public void testFindMentorByName() {
+	 
+		mentorRepo.findMentorByName("arun");
+		
+	}
+//	@Test
+	
+	public void testExistingSkill() {
+		mentorRepo.addExistingSkill("arun", "angular");
+	}
 
 
 }

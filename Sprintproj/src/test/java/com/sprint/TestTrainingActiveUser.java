@@ -34,10 +34,9 @@ private EntityManager em;
 	
 //	@Test
 	public void testAssignTrainer() {
-		Mentor foundMentor = em.find(Mentor.class,2);
-		User foundUser=em.find(User.class,11);
-		TrainingActiveUser ta=new TrainingActiveUser("priyank",foundMentor,"angular",foundUser,null,null,0,0);
-		trainingRepo.assignTrainer(ta);
+		
+		TrainingActiveUser ta=new TrainingActiveUser("angular_basic",null,"angular",null,0,0);
+		trainingRepo.assignTrainer(ta,2,11);
 	}
 //	@Test
 	public void testStartTraining() {

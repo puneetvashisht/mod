@@ -15,59 +15,54 @@ public class Mentor {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 
 	int id;
-	String Mentor_Name;
-	String Password;
-	String Email;
-	long Phone_Number;
-	int Experience;
-	int No_Of_Course_Teached;
+	String mentorName;
+	String password;
+	String email;
+	String phoneNumber;
+	int experience;
+	int noOfCourseTeached;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<MentorSkills> mentorSkills;
 
 	
-	public String getMentor_Name() {
-		return Mentor_Name;
+	public String getMentorName() {
+		return mentorName;
 	}
-	public void setMentor_Name(String mentor_Name) {
-		Mentor_Name = mentor_Name;
+	public void setMentorName(String mentorName) {
+		this.mentorName = mentorName;
 	}
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 	public void setPassword(String password) {
-		Password = password;
+		this.password = password;
 	}
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
-	public long getPhone_Number() {
-		return Phone_Number;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
-	public void setPhone_Number(long phone_Number) {
-		Phone_Number = phone_Number;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 	public int getExperience() {
-		return Experience;
+		return experience;
 	}
 	public void setExperience(int experience) {
-		Experience = experience;
-	}
-	public int getNo_Of_Course_Teached() {
-		return No_Of_Course_Teached;
-	}
-	public void setNo_Of_Course_Teached(int no_Of_Course_Teached) {
-		No_Of_Course_Teached = no_Of_Course_Teached;
+		this.experience = experience;
 	}
 	
-	
-	
-
-
-
+	public int getNoOfCourseTeached() {
+		return noOfCourseTeached;
+	}
+	public void setNoOfCourseTeached(int noOfCourseTeached) {
+		this.noOfCourseTeached = noOfCourseTeached;
+	}
 	public List<MentorSkills> getMentorSkills() {
 		return mentorSkills;
 	}
@@ -77,26 +72,26 @@ public class Mentor {
 	}
 	
 	
-	public Mentor(String mentor_Name, String password, String email, long phone_Number,
-			int experience, int no_Of_Course_Teached,List<MentorSkills> mentorSkills) {
-		super();
-		Mentor_Name = mentor_Name;
-		Password = password;
-		Email = email;
-		Phone_Number = phone_Number;
-		Experience = experience;
-		No_Of_Course_Teached = no_Of_Course_Teached;
-		this.mentorSkills=mentorSkills;
-
-	}
-	
 	public Mentor() {
 		// TODO Auto-generated constructor stub
 	}
+	public Mentor(String mentorName, String password, String email, String phoneNumber, int experience,
+		int noOfCourseTeached, List<MentorSkills> mentorSkills) {
+	super();
+	this.mentorName = mentorName;
+	this.password = password;
+	this.email = email;
+	this.phoneNumber = phoneNumber;
+	this.experience = experience;
+	this.noOfCourseTeached = noOfCourseTeached;
+	this.mentorSkills = mentorSkills;
+}
 	@Override
 	public String toString() {
-		return "Mentor [Mentor_Id=" + id + ", Mentor_Name=" + Mentor_Name + ", Password=" + Password + ", Email="
-				+ Email + ", Phone_Number=" + Phone_Number + ", Experience=" + Experience + ", No_Of_Course_Teached=" + No_Of_Course_Teached + ", Mentor_Skills= "+ mentorSkills+ "]";
+		return "Mentor [id=" + id + ", mentorName=" + mentorName + ", password=" + password + ", email=" + email
+				+ ", phoneNumber=" + phoneNumber + ", experience=" + experience + ", noOfCourseTeached="
+				+ noOfCourseTeached + ", mentorSkills=" + mentorSkills + "]";
 	}
+	
 
 }
