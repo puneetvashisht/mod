@@ -3,30 +3,33 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name="role")
 public class Role {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-	private String rolename;
+	private  int id;
+	private String roleName;
 	
-	public Role(String rolename) {
+	public Role()
+	{
 		super();
-		this.rolename = rolename;
 	}
-	public String getRolename() {
-		return rolename;
+	public Role(String roleName) {
+		super();
+		this.roleName = roleName;
 	}
-	public void setRolename(String rolename) {
-		this.rolename = rolename;
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRolename(String roleName) {
+		this.roleName = roleName;
 	}
 	@Override
-	public String toString() {
-		return "Role [RoleId=" + id + ", RoleName=" + rolename + "]";
+	public String toString()
+	{
+		return "Role [RoleId=" + id + ", RoleName=" + roleName + "]";
 	}
 	
 }

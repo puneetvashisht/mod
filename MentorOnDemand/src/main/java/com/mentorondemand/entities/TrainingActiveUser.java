@@ -10,10 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-import com.mentorondemand.entities.User;
+
 
 @Entity
+@Table(name="trainingactiveuser")
 public class TrainingActiveUser {
 
 	@Id

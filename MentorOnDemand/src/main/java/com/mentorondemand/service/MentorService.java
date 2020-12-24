@@ -37,64 +37,7 @@ public class MentorService {
 		RoleService roleService;
 		
 
-		public MentorRepo getRepo() {
-			return repo;
-		}
-
-
-		public void setRepo(MentorRepo repo) {
-			this.repo = repo;
-		}
-
-
-		public MentorSkillsRepo getSkillrepo() {
-			return skillrepo;
-		}
-
-
-		public void setSkillrepo(MentorSkillsRepo skillrepo) {
-			this.skillrepo = skillrepo;
-		}
-
-
-		public UserRepo getUserrepo() {
-			return userrepo;
-		}
-
-
-		public void setUserrepo(UserRepo userrepo) {
-			this.userrepo = userrepo;
-		}
-
-
-		public RoleRepo getRolerepo() {
-			return rolerepo;
-		}
-
-
-		public void setRolerepo(RoleRepo rolerepo) {
-			this.rolerepo = rolerepo;
-		}
-
-
-		public UserService getUserService() {
-			return userService;
-		}
-
-
-		public void setUserService(UserService userService) {
-			this.userService = userService;
-		}
-
-
-		public RoleService getRoleService() {
-			return roleService;
-		}
-
-
-		public void setRoleService(RoleService roleService) {
-			this.roleService = roleService;
-		}
+		
 
 
 		public void register(MentorDetails mentorDetails) {
