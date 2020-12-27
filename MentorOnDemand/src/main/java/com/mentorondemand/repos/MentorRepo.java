@@ -14,5 +14,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface MentorRepo extends JpaRepository<Mentor, Integer>
 {
 
+Mentor findById(int id);
 }
 

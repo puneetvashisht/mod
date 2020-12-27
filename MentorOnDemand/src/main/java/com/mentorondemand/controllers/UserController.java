@@ -22,30 +22,38 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mentorondemand.entities.User;
 import com.mentorondemand.entities.UserDetails;
+import com.mentorondemand.exceptions.AlreadyExistsException;
+import com.mentorondemand.exceptions.InvalidInputDataException;
+import com.mentorondemand.exceptions.NotFoundException;
 import com.mentorondemand.service.UserService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 @RestController
-//@RequestMapping("/api")
+@RequestMapping("/api")
 public class UserController {
-	
+
 	@Autowired
 	UserService userService;
 
-	@GetMapping("/users")
+	@GetMapping("/user/display")
+	@ApiOperation(value = "Display all User", notes = "", response = User.class)
 	public List<User> getAllUser() {
 		return userService.findAll();
 
 	}
 
-	@GetMapping("/users/{id}")
-	public ResponseEntity<User> getUserById(@PathVariable("id") int id)  {
+	@GetMapping("/user/{id}")
+	@ApiOperation(value = "Finding the User By Id", notes = "Enter the UserId", response = User.class)
+	public ResponseEntity<User> getUserById(@ApiParam(value = "Enter the Id", required = true)@PathVariable("id") int id) throws NotFoundException {
 		ResponseEntity<User> re;
 		System.out.println("Recieved id on path: " + id);
 		// code here to fetch user by id
-		User user = userService.findUserbyid(id);
+		User user = userService.findUserById(id);
 		if (user != null) {
-			re = new ResponseEntity<>( user,HttpStatus.OK);
-			
+			re = new ResponseEntity<>(user, HttpStatus.OK);
+
 		} else {
 			re = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -53,8 +61,9 @@ public class UserController {
 
 	}
 
-	@GetMapping("/findUserEmail")
-	public ResponseEntity<User> getUserByEmail(@RequestParam("Email") String email) {
+	@GetMapping("/user/Email")
+	@ApiOperation(value = "Finding the User By Email", notes = "Enter the Email", response = User.class)
+	public ResponseEntity<User> getUserByEmail(@ApiParam(value = "Enter the Email", required = true)@RequestParam("Email") String email) throws NotFoundException {
 		ResponseEntity<User> re = null;
 		System.out.println(email);
 		User existingUser = userService.findByEmail(email);
@@ -65,8 +74,9 @@ public class UserController {
 
 	}
 
-	@GetMapping("/findUserName")
-	public ResponseEntity<User> getUserByName(@RequestParam("Name") String name) {
+	@GetMapping("/user/Name")
+	@ApiOperation(value = "Finding the User By Name", notes = "Enter the Name", response = User.class)
+	public ResponseEntity<User> getUserByName(@ApiParam(value = "Enter the Name", required = true)@RequestParam("Name") String name) throws NotFoundException {
 		ResponseEntity<User> re = null;
 		System.out.println(name);
 		User existingUser = userService.findByName(name);
@@ -76,54 +86,62 @@ public class UserController {
 		return new ResponseEntity<>(existingUser, HttpStatus.OK);
 	}
 
-	@GetMapping("/loginUser")
-	public ResponseEntity<String> UserLogin(@RequestParam("name") String name,
-			@RequestParam("password") String password) {
-		User existingUser = userService.findByName(name);
-		if (existingUser.getName().equals(name) && existingUser.getPassword().equals(password)) {
-			return new ResponseEntity<String>("Successfully logged in!!", HttpStatus.OK);
-		} else {
-			return new ResponseEntity<String>("Enter valid details!!", HttpStatus.NOT_FOUND);
+	@PostMapping("/user/login") 
+	@ApiOperation(value = "User Login", notes = "Enter your credentials", response = User.class)
+	public ResponseEntity<String> login(@ApiParam(value = "Enter your Details", required = true)@RequestParam("Name") String name,@RequestParam("Password") String password) throws NotFoundException {
+		
+		boolean b = userService.login(name,password);
+		if (b) {		    
+		     return new ResponseEntity<String>("Successfully Logged in", HttpStatus.OK);
 		}
-	}
+		else {
+			 return new ResponseEntity<String>("Use correct email or password",HttpStatus.NOT_FOUND);		
+		} 			
+	} 
+	@PostMapping("/user/add")
+	@ApiOperation(value = "Adding the User", notes = "Enter the details for adding user", response = User.class)
+	public ResponseEntity<String> addUser(@RequestBody UserDetails userDetails)
+			throws InvalidInputDataException, NotFoundException, AlreadyExistsException {
 
-	@PostMapping("/users")
-	public ResponseEntity<String> addUser(@RequestBody UserDetails userDetails){
-
-		User existingUser = userService.findByEmail(userDetails.getEmail());
+		User existingUser = userService.findByName(userDetails.getName());
 		System.out.println(userDetails);
-		if (existingUser != null) {
-			return new ResponseEntity<String>("User already exists!!", HttpStatus.CONFLICT);
+		if (existingUser == null) {
+			userService.addUser(userDetails);
+			ResponseEntity<String> re = new ResponseEntity<>("successfully registered user!!", HttpStatus.CREATED);
+			return re;
 		}
-		userService.add(userDetails);
-		ResponseEntity<String> re = new ResponseEntity<>("successfully registered user!!", HttpStatus.CREATED);
-		return re;
-	}
+			ResponseEntity<String> re = new ResponseEntity<>("Already Exixts!!", HttpStatus.CONFLICT);
+			return re;
+		}
+	
 
-	@PutMapping("/userupdate/{id}")
-	public ResponseEntity<String> updateUser(@PathVariable(value = "id") int userId, @RequestBody UserDetails userDetails)
-			throws Exception {
-		User user = userService.findUserbyid(userId);
-		if (user == null) {
-			return new ResponseEntity<String>("User not found :(",HttpStatus.NOT_FOUND);
+	@PutMapping("/user/update/{id}")
+	@ApiOperation(value = "Updating the User", notes = "Enter the values to update the user", response = User.class)
+	public ResponseEntity<String> updateUser(@ApiParam(value = "Enter your Details", required = true)@PathVariable(value = "id") int userId,
+			@RequestBody UserDetails userDetails) throws Exception {
+		User user = userService.findUserById(userId);
+		if (user==null) {
+			return new ResponseEntity<String>("User not found :(", HttpStatus.NOT_FOUND);
 		}
+	
 		user.setEmail(userDetails.getEmail());
 		user.setName(userDetails.getName());
 		user.setPassword(userDetails.getPassword());
 		user.setPhno(userDetails.getPhno());
-		User updatedUser = userService.save(user);
-		return new ResponseEntity<String>("Updated Successfully!!",HttpStatus.OK);
+	    userService.save(user);
+		return new ResponseEntity<String>("Updated Successfully!!", HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteEmployee(@PathVariable("id") int id) {
+	@DeleteMapping("/user/delete/{id}")
+	@ApiOperation(value = "Enter id to be delete", notes = "Enter your id", response = User.class)
+	public ResponseEntity<String> deleteEmployee(@ApiParam(value = "Enter your userId", required = true)@PathVariable("id") int id) throws NotFoundException {
 		ResponseEntity<String> re;
-		User user = userService.findUserbyid(id);
+		User user = userService.findUserById(id);
 		if (user != null) {
-			userService.delete(id);
-			re = new ResponseEntity<String>("Deleted", HttpStatus.OK);
+			userService.deleteUser(id);
+			re = new ResponseEntity<String>("Successfully  Deleted ", HttpStatus.OK);
 		} else {
-			re = new ResponseEntity<String>("Not Found", HttpStatus.NOT_FOUND);
+			re = new ResponseEntity<String>(" User Not Found", HttpStatus.NOT_FOUND);
 		}
 		return re;
 

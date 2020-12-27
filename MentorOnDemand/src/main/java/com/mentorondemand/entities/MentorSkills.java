@@ -28,6 +28,14 @@ public class MentorSkills {
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		boolean flag=true;
+		MentorSkills other = (MentorSkills) obj;
+		if (!title.equals(other.title))
+			flag= false;
+		return flag;
+	}
+	@Override
 	public String toString() {
 		return "MentorSkills [id=" + id + ", Title=" + title + "]";
 	}

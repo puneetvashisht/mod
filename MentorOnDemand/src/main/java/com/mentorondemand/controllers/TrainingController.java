@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mentorondemand.entities.TrainingActiveUser;
 import com.mentorondemand.entities.TrainingDetails;
+import com.mentorondemand.exceptions.NotFoundException;
 import com.mentorondemand.service.TrainingActiveUserService;
 
 
@@ -27,7 +28,7 @@ public class TrainingController {
 	TrainingActiveUserService service;
 	
 	@PostMapping("/assign")
-	public ResponseEntity<String> assignTrainer(@RequestBody TrainingDetails trainingDetails) {
+	public ResponseEntity<String> assignTrainer(@RequestBody TrainingDetails trainingDetails) throws NotFoundException {
 		
 		TrainingActiveUser t=new TrainingActiveUser(trainingDetails.getTrainingName(),null,trainingDetails.getSkillTitle(),null,0,0);
 		

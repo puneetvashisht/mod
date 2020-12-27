@@ -12,13 +12,10 @@ import org.springframework.stereotype.Service;
 import com.mentorondemand.entities.Mentor;
 import com.mentorondemand.entities.TrainingActiveUser;
 import com.mentorondemand.entities.User;
+import com.mentorondemand.exceptions.NotFoundException;
 import com.mentorondemand.repos.MentorRepo;
 import com.mentorondemand.repos.TrainingRepo;
 import com.mentorondemand.repos.UserRepo;
-
-
-
-
 
 @Service
 public class TrainingActiveUserService {
@@ -32,18 +29,18 @@ public class TrainingActiveUserService {
 	@Autowired
 	MentorService mentorService;
 	
-	public String assignTrainer(TrainingActiveUser t,int mentorId,int userId) {
-		Optional<Mentor> foundMentor = mentorService.findById(mentorId);
-		if(!foundMentor.isPresent()) {
+	public String assignTrainer(TrainingActiveUser t,int mentorId,int userId) throws NotFoundException {
+		Mentor foundMentor = mentorService.findById(mentorId);
+		if(foundMentor==null) {
 			return "Mentor";
 		}
 		
-		User foundUser=userService.findUserbyid(userId);
+		User foundUser=userService.findUserById(userId);
 		if(foundUser==null) {
 			return "User";
 		}
 		
-		t.setMentor(foundMentor.get());
+		t.setMentor(foundMentor);
 		t.setUser(foundUser);
 		trainingRepo.save(t);
 		return "success";
@@ -97,13 +94,13 @@ public class TrainingActiveUserService {
 	
 	public boolean addRating(String trainingName,int userId,int rating) {
 		TrainingActiveUser t=trainingRepo.addRating(trainingName, userId);
-		
-		
+		System.out.println("error in addrating");
+		System.out.println(t);
 		if(t!=null) 
 			t.setRating(rating);
 		else if(t==null) {
-			System.out.println("training is incomplete " +"\n" +"progress: "+t.getProgress());
-			return false;
+			throw new NullPointerException("user not found");
+			
 		}
 		trainingRepo.save(t);
 		return true;

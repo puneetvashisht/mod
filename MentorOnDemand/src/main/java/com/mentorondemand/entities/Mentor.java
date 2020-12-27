@@ -50,13 +50,11 @@ public class Mentor {
 		this.mentorSkills = mentorSkills;
 	}
 
-	public Mentor(int experience, int courseTeached,  User user,
-			List<MentorSkills> mentorSkills) {
+	public Mentor(int experience, int courseTeached,  User user) {
 		super();
 		this.experience = experience;
 		this.courseTeached = courseTeached;	
 		this.user = user;
-		this.mentorSkills = mentorSkills;
 	}
 
 	public Mentor() {
@@ -66,7 +64,7 @@ public class Mentor {
 	@Override
 	public String toString() {
 		return "Mentor [ experience=" + experience + ", courseTeached=" + courseTeached
-				+  ", user=" + user + ", mentorSkills=" + mentorSkills + "]";
+				+  ", user=" + user +  "]";
 	}
 
 	
