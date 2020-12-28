@@ -20,7 +20,7 @@ public class User {
     String phno;
 	@Transient
 	String confirmPassword;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
 	private Role role;
 	
 	public User(String name, String email, String password,String phno) {
@@ -35,7 +35,7 @@ public class User {
 
 	public User() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 

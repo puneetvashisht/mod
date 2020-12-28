@@ -3,9 +3,6 @@ package com.mentorondemand.service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-
-import javax.persistence.TypedQuery;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,105 +10,115 @@ import com.mentorondemand.entities.Mentor;
 import com.mentorondemand.entities.TrainingActiveUser;
 import com.mentorondemand.entities.User;
 import com.mentorondemand.exceptions.NotFoundException;
-import com.mentorondemand.repos.MentorRepo;
 import com.mentorondemand.repos.TrainingRepo;
-import com.mentorondemand.repos.UserRepo;
 
 @Service
 public class TrainingActiveUserService {
-	
+
 	@Autowired
 	TrainingRepo trainingRepo;
-	
+
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	MentorService mentorService;
-	
-	public String assignTrainer(TrainingActiveUser t,int mentorId,int userId) throws NotFoundException {
+
+	public String assignTrainer(TrainingActiveUser t, int mentorId, int userId) throws NotFoundException {
 		Mentor foundMentor = mentorService.findById(mentorId);
-		if(foundMentor==null) {
-			return "Mentor";
+		if (foundMentor == null) {
+			throw new NotFoundException("Mentor not found");
 		}
-		
-		User foundUser=userService.findUserById(userId);
-		if(foundUser==null) {
-			return "User";
+
+		User foundUser = userService.findUserById(userId);
+		if (foundUser == null) {
+			throw new NotFoundException("user not found");
 		}
-		
+
 		t.setMentor(foundMentor);
 		t.setUser(foundUser);
 		trainingRepo.save(t);
 		return "success";
-		
+
 	}
-	
-	public boolean startTraining(int id){
-		
-		Optional<TrainingActiveUser> t=trainingRepo.findById(id);
-		if(!t.isPresent()) {
-			return false;
+
+	public boolean startTraining(int id) throws NotFoundException {
+
+		Optional<TrainingActiveUser> t = trainingRepo.findById(id);
+		if (!t.isPresent()) {
+			throw new NotFoundException("Training not found");
 		}
-		
-		LocalDate d=LocalDate.now();
-		TrainingActiveUser ta=t.get();
+
+		LocalDate d = LocalDate.now();
+		TrainingActiveUser ta = t.get();
 		ta.setStartDate(d);
 		trainingRepo.save(ta);
-		
+
 		return true;
 	}
-	public boolean endTraining(int id) {
-		Optional<TrainingActiveUser> t=trainingRepo.findById(id);
-		if(!t.isPresent()) {
-			return false;
+
+	public boolean endTraining(int id) throws NotFoundException {
+		Optional<TrainingActiveUser> t = trainingRepo.findById(id);
+		if (!t.isPresent()) {
+			throw new NotFoundException("Training not found");
 		}
-		LocalDate d=LocalDate.now();
-		TrainingActiveUser ta=t.get();
+		LocalDate d = LocalDate.now();
+		TrainingActiveUser ta = t.get();
 		ta.setProgress(100);
 		ta.setEndDate(d);
 		trainingRepo.save(ta);
 		return true;
 	}
-	
-	public List<TrainingActiveUser> findPreviousTraining(int mentorId) {
-		List<TrainingActiveUser> mentors=trainingRepo.findPreviousTraining(mentorId);
-		
-		System.out.println(mentors);
-		return mentors;
+
+	public List<TrainingActiveUser> findPreviousTraining(int mentorId) throws NotFoundException {
+		List<TrainingActiveUser> mentors = trainingRepo.findPreviousTraining(mentorId);
+		if (mentors != null) {
+			return mentors;
+		} else {
+			throw new NotFoundException("mentor not found");
+		}
+
 	}
-	
-	public int updateProgress(int progress,int userId,String trainingName) {
-		
-		TrainingActiveUser t=trainingRepo.updateProgress(trainingName, userId);
-		
-		t.setProgress(progress);
-		
+
+	public TrainingActiveUser updateProgress(int progress, int userId, String trainingName) throws NotFoundException {
+
+		TrainingActiveUser t = trainingRepo.updateProgress(trainingName, userId);
+		if (t != null)
+			t.setProgress(progress);
+		else {
+			throw new NotFoundException("user not found");
+
+		}
+
 		trainingRepo.save(t);
-		return t.getProgress();
-		
+		return t;
+
 	}
-	
-	public boolean addRating(String trainingName,int userId,int rating) {
-		TrainingActiveUser t=trainingRepo.addRating(trainingName, userId);
+
+	public boolean addRating(String trainingName, int userId, int rating) throws NotFoundException {
+		TrainingActiveUser t = trainingRepo.addRating(trainingName, userId);
 		System.out.println("error in addrating");
 		System.out.println(t);
-		if(t!=null) 
+		if (t != null)
 			t.setRating(rating);
-		else if(t==null) {
-			throw new NullPointerException("user not found");
-			
+		else {
+			throw new NotFoundException("user not found");
+
 		}
 		trainingRepo.save(t);
 		return true;
 	}
-	
-	public int findProgress(String trainingName,int userId) {
+
+	public int findProgress(String trainingName, int userId) throws NotFoundException {
 		// TODO Auto-generated method stub
-		
-		TrainingActiveUser t=trainingRepo.findTrainingProgress(trainingName, userId);
-		
-		System.out.println("Progress = "+t.getProgress());
-		return t.getProgress();
+
+		TrainingActiveUser t = trainingRepo.findTrainingProgress(trainingName, userId);
+		if (t != null)
+			return t.getProgress();
+		else {
+			throw new NotFoundException("user not found");
+
+		}
+
 	}
 }

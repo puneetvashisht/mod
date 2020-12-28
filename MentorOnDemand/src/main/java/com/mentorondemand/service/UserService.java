@@ -1,13 +1,8 @@
 package com.mentorondemand.service;
 
 import java.util.List;
-
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import com.mentorondemand.entities.Mentor;
 import com.mentorondemand.entities.Role;
 import com.mentorondemand.entities.User;
@@ -20,14 +15,14 @@ import com.mentorondemand.repos.RoleRepo;
 import com.mentorondemand.repos.UserRepo;
 
 @Service
-public class UserService  {
+public class UserService {
 	@Autowired
 	UserRepo userRepo;
 	@Autowired
 	RoleRepo roleRepo;
-    @Autowired
-    MentorRepo mentorRepo;
-	
+	@Autowired
+	MentorRepo mentorRepo;
+
 	public List<User> findAll() {
 
 		return userRepo.findAll();
@@ -44,11 +39,6 @@ public class UserService  {
 
 	public User findByEmail(String email) {
 		return userRepo.findByEmail(email);
-//		if (existingUser != null) {
-//			return existingUser;
-//		} else {
-//			throw new NotFoundException("User Not Found :(");
-//		}
 	}
 
 	public User findByName(String name) throws NotFoundException {
@@ -60,7 +50,7 @@ public class UserService  {
 		}
 	}
 
-	public void addUser(UserDetails userDetails) throws InvalidInputDataException,AlreadyExistsException {
+	public void addUser(UserDetails userDetails) throws InvalidInputDataException, AlreadyExistsException {
 
 		String name = userDetails.getName();
 		if (name.trim().isEmpty() || name == null) {
@@ -84,13 +74,10 @@ public class UserService  {
 
 		User user = new User(name, email, password, phno);
 		Role role = roleRepo.findByRoleName(userDetails.getRole());
-		System.out.println(role);
 		user.setRole(role);
-		System.out.println(user);
 		userRepo.save(user);
-		if(userDetails.getRole().equals("Mentor"))
-		{
-			Mentor m=new Mentor(0,0,user); 
+		if (userDetails.getRole().equals("Mentor")) {
+			Mentor m = new Mentor(0, 0, user);
 			mentorRepo.save(m);
 		}
 	}
@@ -101,29 +88,25 @@ public class UserService  {
 			return true;
 		return false;
 	}
+
 	public User save(User user) throws InvalidInputDataException {
 
 		return userRepo.save(user);
 	}
 
-	
-    public boolean login(String name,String password) throws NotFoundException
-    {
-    	boolean flag=false;
-    	User user=userRepo.findByName(name);
-    	if(user!=null)
-    	{
-    		if(user.getName().equals(name)&& user.getPassword().equals(password))
-    		{
-    			flag=true;
-    		}	
-    	}
-    	else
-    	{
-    		throw new NotFoundException("Enter Valid details!!!");
-    	}
-    	return flag;
-    }
+	public boolean login(String name, String password) throws NotFoundException {
+		boolean flag = false;
+		User user = userRepo.findByName(name);
+		if (user != null) {
+			if (user.getName().equals(name) && user.getPassword().equals(password)) {
+				flag = true;
+			}
+		} else {
+			throw new NotFoundException("Enter Valid details!!!");
+		}
+		return flag;
+	}
+
 	public void deleteUser(int id) throws NotFoundException {
 
 		User existingUser = userRepo.findById(id);
@@ -133,11 +116,5 @@ public class UserService  {
 			throw new NotFoundException("User Not Found :(");
 		}
 	}
-
-	
-
-
-	
-	
 
 }

@@ -2,17 +2,15 @@ package com.mentorondemand.entities;
 import java.util.*;
 import javax.persistence.*;
 
-import com.mentorondemand.entities.MentorSkills;
-import com.mentorondemand.entities.User;
 @Entity
-@Table(name="mentor")
+@Table(name = "mentor")
 public class Mentor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private int experience;
 	private int courseTeached;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private User user;
 
 	@ManyToMany(cascade = CascadeType.ALL)
@@ -50,10 +48,10 @@ public class Mentor {
 		this.mentorSkills = mentorSkills;
 	}
 
-	public Mentor(int experience, int courseTeached,  User user) {
+	public Mentor(int experience, int courseTeached, User user) {
 		super();
 		this.experience = experience;
-		this.courseTeached = courseTeached;	
+		this.courseTeached = courseTeached;
 		this.user = user;
 	}
 
@@ -63,10 +61,7 @@ public class Mentor {
 
 	@Override
 	public String toString() {
-		return "Mentor [ experience=" + experience + ", courseTeached=" + courseTeached
-				+  ", user=" + user +  "]";
+		return "Mentor [ experience=" + experience + ", courseTeached=" + courseTeached + ", user=" + user + "]";
 	}
 
-	
-}	
-	
+}
