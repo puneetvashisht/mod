@@ -1,4 +1,4 @@
-package com.sprint.entities;
+package com.mentorondemand.entities;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,17 +20,22 @@ public class User {
     String phno;
 	@Transient
 	String confirmPassword;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
 	private Role role;
 	
 	public User(String name, String email, String password,String phno) {
 		super();
-		
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.phno=phno;
 	
+	}
+
+
+	public User() {
+		super();
+
 	}
 
 

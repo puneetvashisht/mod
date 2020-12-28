@@ -1,4 +1,4 @@
-package com.sprint.entities;
+package com.mentorondemand.entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,8 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+
 
 @Entity
+@Table(name="trainingactiveuser")
 public class TrainingActiveUser {
 
 	@Id
