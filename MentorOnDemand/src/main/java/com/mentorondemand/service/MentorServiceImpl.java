@@ -46,7 +46,7 @@ public class MentorServiceImpl implements MentorService{
 			u.setRole(role);
 			userService.save(u);
 			User u1 = userRepo.findByEmail(mentorDetails.getEmail());
-			List<MentorSkills> a = new ArrayList<>();
+			List<MentorSkills> a;
 			Mentor m = new Mentor(mentorDetails.getExperience(), mentorDetails.getCourseTeached(), u1);
 			repo.save(m);
 
@@ -104,25 +104,24 @@ public class MentorServiceImpl implements MentorService{
 		System.out.println(mentor);
 		mentor.setExperience(mentorDetails.getExperience());
 		mentor.setCourseTeached(mentorDetails.getCourseTeached());
-		List<MentorSkills> a = new ArrayList<>();
+		List<MentorSkills> a;
 		a = skillRepo.findAll();
-		List<MentorSkills> b = new ArrayList<>();
-		List<MentorSkills> c = new ArrayList<>();
+		List<MentorSkills> b=new ArrayList<>();
+		List<MentorSkills> c;
 		c = mentor.getMentorSkills();
 		b.addAll(c);
 		for (MentorSkills ms : mentorDetails.getMentorSkills()) {
 			if (a.contains(ms) && !(b.contains(ms))) {
-				System.out.println(a.get(a.indexOf(ms)));
-				System.out.println("hello");
+				
 				b.add(a.get(a.indexOf(ms)));
 			} else if (!b.contains(ms)) {
-				System.out.println("b.contains");
+				
 				b.add(ms);
 			}
 		}
-		System.out.println(b);
+		
 		mentor.setMentorSkills(b);
-		System.out.println(b);
+		
 		repo.save(mentor);
 		return mentor;
 	}

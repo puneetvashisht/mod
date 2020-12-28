@@ -13,7 +13,7 @@ import com.mentorondemand.exceptions.NotFoundException;
 import com.mentorondemand.repos.TrainingRepo;
 
 @Service
-public class TrainingActiveUserService {
+public class TrainingActiveUserServiceImpl implements TraningActiveUserService {
 
 	@Autowired
 	TrainingRepo trainingRepo;
@@ -97,8 +97,7 @@ public class TrainingActiveUserService {
 
 	public boolean addRating(String trainingName, int userId, int rating) throws NotFoundException {
 		TrainingActiveUser t = trainingRepo.addRating(trainingName, userId);
-		System.out.println("error in addrating");
-		System.out.println(t);
+		
 		if (t != null)
 			t.setRating(rating);
 		else {
@@ -110,8 +109,6 @@ public class TrainingActiveUserService {
 	}
 
 	public int findProgress(String trainingName, int userId) throws NotFoundException {
-		// TODO Auto-generated method stub
-
 		TrainingActiveUser t = trainingRepo.findTrainingProgress(trainingName, userId);
 		if (t != null)
 			return t.getProgress();

@@ -1,6 +1,9 @@
 package com.mentorondemand.controllers;
 
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mentorondemand.entities.TrainingActiveUser;
 import com.mentorondemand.entities.TrainingDetails;
 import com.mentorondemand.exceptions.NotFoundException;
-import com.mentorondemand.service.TrainingActiveUserService;
+
+import com.mentorondemand.service.TraningActiveUserService;
+
 import io.swagger.annotations.ApiOperation;
 
 @RestController
@@ -23,7 +28,9 @@ import io.swagger.annotations.ApiOperation;
 public class TrainingController {
 
 	@Autowired
-	TrainingActiveUserService service;
+	TraningActiveUserService service;
+	
+	private static Logger logger = LogManager.getLogger(TrainingController.class);
 
 	@PostMapping("/training")
 	@ApiOperation(value = "create training", notes = "Enter the training details", response = String.class)
@@ -37,6 +44,7 @@ public class TrainingController {
 		if (s.equals("success")) {
 			re = new ResponseEntity<>("successfully registered", HttpStatus.CREATED);
 		}
+
 		return re;
 	}
 
@@ -70,8 +78,9 @@ public class TrainingController {
 			throws NotFoundException {
 
 		List<TrainingActiveUser> l = service.findPreviousTraining(id);
-
+		logger.info(l);
 		ResponseEntity<List<TrainingActiveUser>> re = new ResponseEntity(l, HttpStatus.OK);
+	
 		return re;
 
 	}
@@ -83,8 +92,8 @@ public class TrainingController {
 			throws NotFoundException {
 
 		TrainingActiveUser t = service.updateProgress(progress, new Integer(userId), trainingName);
-
-		ResponseEntity<TrainingActiveUser> re = new ResponseEntity(t, HttpStatus.OK);
+		logger.info(t);
+		ResponseEntity<TrainingActiveUser> re = new ResponseEntity<>(t, HttpStatus.OK);
 		return re;
 	}
 
