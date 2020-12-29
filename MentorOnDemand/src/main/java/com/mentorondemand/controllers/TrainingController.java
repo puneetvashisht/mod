@@ -29,7 +29,7 @@ public class TrainingController {
 
 	@Autowired
 	TraningActiveUserService service;
-	
+
 	private static Logger logger = LogManager.getLogger(TrainingController.class);
 
 	@PostMapping("/training")
@@ -65,7 +65,7 @@ public class TrainingController {
 	public ResponseEntity<String> endTraining(@PathVariable("id") int id) throws NotFoundException {
 
 		boolean b = service.endTraining(id);
-		ResponseEntity re = null;
+		ResponseEntity<String> re = null;
 		if (b)
 			re = new ResponseEntity<>("ended training", HttpStatus.OK);
 
@@ -79,8 +79,8 @@ public class TrainingController {
 
 		List<TrainingActiveUser> l = service.findPreviousTraining(id);
 		logger.info(l);
-		ResponseEntity<List<TrainingActiveUser>> re = new ResponseEntity(l, HttpStatus.OK);
-	
+		ResponseEntity<List<TrainingActiveUser>> re = new ResponseEntity<>(l, HttpStatus.OK);
+
 		return re;
 
 	}
@@ -93,8 +93,7 @@ public class TrainingController {
 
 		TrainingActiveUser t = service.updateProgress(progress, new Integer(userId), trainingName);
 		logger.info(t);
-		ResponseEntity<TrainingActiveUser> re = new ResponseEntity<>(t, HttpStatus.OK);
-		return re;
+		return new ResponseEntity<>(t, HttpStatus.OK);
 	}
 
 	@PutMapping("/training/rating")
@@ -113,7 +112,7 @@ public class TrainingController {
 	public ResponseEntity<Integer> findProgress(@RequestParam("trainingName") String trainingName,
 			@RequestParam("userId") String userId) throws NotFoundException {
 		int progress = service.findProgress(trainingName, new Integer(userId));
-		ResponseEntity<Integer> re = new ResponseEntity<>(progress, HttpStatus.OK);
-		return re;
+		return new ResponseEntity<>(progress, HttpStatus.OK);
+		
 	}
 }
